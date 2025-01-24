@@ -41,7 +41,7 @@ public class Agenda {
                         StringBuilder linha = new StringBuilder();
                         for (int j = 0; j < agenda[i].length; j++) {
                             if (agenda[i][j] != null) {
-                                linha.append("DIA: " + i + " - HORA: " + j +" COMPROMISSO: " +agenda[i][j] + ", ");
+                                linha.append("DIA: " + (i+1) + " - HORA: " + (j+1) +" COMPROMISSO: " +agenda[i][j] + ", ");
                             }
                         }
                         if (!linha.isEmpty()) {
@@ -79,19 +79,21 @@ public class Agenda {
                     do{
                         dia = receberInteiro(scanner, "\n\tInforme o dia que você deseja " + ((isInserindo) ? "INSERIR " : "CONSULTAR ") +" um compromisso: ", true, false);
                         hora = receberInteiro(scanner, "\n\tInforme a hora do dia " + dia + " que você deseja " + ((isInserindo) ? "INSERIR " : "CONSULTAR ") + " um compromisso: ", false, false);
+                        dia--;
+                        hora--;
                         scanner.nextLine();
                         if(isInserindo){
-                            if(agenda[--dia][--hora]!=null){
+                            if(agenda[dia][hora]!=null){
                                 temCompromisso=true;
                                 System.out.println("\n\tERRO! O dia: " + (dia+1) + " às: " + (hora+1) + " horas já tem compromisso marcado! ");
                             }else{
                                 temCompromisso=false;
                                 System.out.print("\n\tInforme o compromisso do dia " + (dia+1) + " às " + (hora+1) + " horas: ");
-                                agenda[--dia][--hora] = scanner.nextLine();
+                                agenda[dia][hora] = scanner.nextLine();
                             }
                         }else{
-                            System.out.print("\n\t\t"+((agenda[--dia][--hora]==null)?" SEM COMPROMISSO PARA O DIA " + (dia+1) + " ÀS " + (hora+1) + " HORAS":
-                                    "COMPROMISSO: " + agenda[--dia][--hora]));
+                            System.out.print("\n\t\t"+((agenda[dia][hora]==null)?" SEM COMPROMISSO PARA O DIA " + (dia+1) + " ÀS " + (hora+1) + " HORAS":
+                                    "COMPROMISSO: " + agenda[dia][hora]));
                         }
                     }while (temCompromisso);
 
