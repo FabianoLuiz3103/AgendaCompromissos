@@ -13,7 +13,7 @@ public class Agenda {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        String[][] agenda = new String[31][25];
+        String[][] agenda = new String[31][24];
         int opcao;
 
         do{
@@ -81,17 +81,17 @@ public class Agenda {
                         hora = receberInteiro(scanner, "\n\tInforme a hora do dia " + dia + " que você deseja " + ((isInserindo) ? "INSERIR " : "CONSULTAR ") + " um compromisso: ", false, false);
                         scanner.nextLine();
                         if(isInserindo){
-                            if(agenda[dia][hora]!=null){
+                            if(agenda[--dia][--hora]!=null){
                                 temCompromisso=true;
-                                System.out.println("\n\tERRO! O dia: " + dia + " às: " + hora + " horas já tem compromisso marcado! ");
+                                System.out.println("\n\tERRO! O dia: " + (dia+1) + " às: " + (hora+1) + " horas já tem compromisso marcado! ");
                             }else{
                                 temCompromisso=false;
-                                System.out.print("\n\tInforme o compromisso do dia " + dia + " às " + hora + " horas: ");
-                                agenda[dia][hora] = scanner.nextLine();
+                                System.out.print("\n\tInforme o compromisso do dia " + (dia+1) + " às " + (hora+1) + " horas: ");
+                                agenda[--dia][--hora] = scanner.nextLine();
                             }
                         }else{
-                            System.out.print("\n\t\t"+((agenda[dia][hora]==null)?" SEM COMPROMISSO PARA O DIA " + dia + " ÀS " + hora + " HORAS":
-                                    "COMPROMISSO: " + agenda[dia][hora]));
+                            System.out.print("\n\t\t"+((agenda[--dia][--hora]==null)?" SEM COMPROMISSO PARA O DIA " + (dia+1) + " ÀS " + (hora+1) + " HORAS":
+                                    "COMPROMISSO: " + agenda[--dia][--hora]));
                         }
                     }while (temCompromisso);
 
