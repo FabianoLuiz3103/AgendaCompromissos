@@ -67,6 +67,7 @@ public class Agenda {
     private static void inserindoOUconsultarCompromisso(Scanner scanner, String[][] agenda, boolean isInserindo){
 
         int opcao, dia, hora;
+        boolean temCompromisso=false;
         do{
             opcao = receberInteiro(scanner, "\n--------------------------------------" +
                     "\nDESEJA " + ((isInserindo) ? "INSERIR " : "CONSULTAR ") +  "UM COMPROMISSO?:" +
@@ -75,16 +76,24 @@ public class Agenda {
             switch (opcao){
                 case 1:{
 
-                    dia = receberInteiro(scanner, "\n\tInforme o dia que você deseja " + ((isInserindo) ? "INSERIR " : "CONSULTAR ") +" um compromisso: ", true, false);
-                    hora = receberInteiro(scanner, "\n\tInforme a hora do dia " + dia + " que você deseja " + ((isInserindo) ? "INSERIR " : "CONSULTAR ") + " um compromisso: ", false, false);
-                    scanner.nextLine();
-                    if(isInserindo){
-                        System.out.print("\n\tInforme o compromisso do dia " + dia + " às " + hora + " horas: ");
-                        agenda[dia][hora] = scanner.nextLine();
-                    }else{
-                        System.out.print("\n\t\t"+((agenda[dia][hora]==null)?" SEM COMPROMISSO PARA O DIA " + dia + " ÀS " + hora + " HORAS":
-                                "COMPROMISSO: " + agenda[dia][hora]));
-                    }
+                    do{
+                        dia = receberInteiro(scanner, "\n\tInforme o dia que você deseja " + ((isInserindo) ? "INSERIR " : "CONSULTAR ") +" um compromisso: ", true, false);
+                        hora = receberInteiro(scanner, "\n\tInforme a hora do dia " + dia + " que você deseja " + ((isInserindo) ? "INSERIR " : "CONSULTAR ") + " um compromisso: ", false, false);
+                        scanner.nextLine();
+                        if(isInserindo){
+                            if(agenda[dia][hora]!=null){
+                                temCompromisso=true;
+                                System.out.println("\n\tERRO! O dia: " + dia + " às: " + hora + " horas já tem compromisso marcado! ");
+                            }else{
+                                temCompromisso=false;
+                                System.out.print("\n\tInforme o compromisso do dia " + dia + " às " + hora + " horas: ");
+                                agenda[dia][hora] = scanner.nextLine();
+                            }
+                        }else{
+                            System.out.print("\n\t\t"+((agenda[dia][hora]==null)?" SEM COMPROMISSO PARA O DIA " + dia + " ÀS " + hora + " HORAS":
+                                    "COMPROMISSO: " + agenda[dia][hora]));
+                        }
+                    }while (temCompromisso);
 
                 }
                 break;
